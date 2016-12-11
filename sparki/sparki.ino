@@ -1,17 +1,13 @@
 #include <Sparki.h>
-String inputString = "";
-#define DRIVE 0
-#define GRAB 1
-#define ROTATE 3
-#define FOLLOW 4
-#define DROP 5
+
 #define LOOP_TIME         100
 #define AXLE_DIST         0.08586
 #define RAD               0.025
 #define VEL               0.0278551532
 #define LOOP_TIME_O       100
-#define THRESHOLD         700
 #define VELOCITY          0.0278551532
+
+String inputString = "";
 
 void setup() {
   Serial.begin(9600);
@@ -80,7 +76,7 @@ void loop() {
   }
 }
 
-int inverseKinematics(float xG, float yG) {
+static inline int inverseKinematics(float xG, float yG) {
   float xI                = 0.0;
   float yI                = 0.0;
   float thetaR            = 0.0;
@@ -161,7 +157,8 @@ int inverseKinematics(float xG, float yG) {
   return 1;
 }
 
-float* odometry() {
+
+static inline float* odometry() {
   float x                 = 0.0;
   float y                 = 0.0;
   float theta             = 0.0;
@@ -216,7 +213,8 @@ float* odometry() {
 }
 
 
-int reactiveBehaviors(){
+
+static inline int reactiveBehaviors(){
 //   Move forward
   int cm = sparki.ping();
   sparki.moveForward();
